@@ -1,0 +1,81 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'apps/Backend/**'
+      - 'packages/**'
+      - '.github/workflows/backend.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'apps/Backend/**'
+      - 'packages/**'
+
+jobs:
+  # Trabajo para pruebas y linting
+  test-lint:
+    runs-on: ubuntu-latest
+    
+    services:
+      # Servicio de MongoDB para pruebas
+      mongodb:
+        image: mongo:6
+        ports:
+          - 27017:27017
+      
+      # Servicio de Redis para pruebas
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+    
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+      
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Instalar dependencias
+        run: npm ci
+      
+      - name: Linting
+        run: npm run lint
+        
+      - name: Ejecutar pruebas
+        run: npm run test
+        env:
+          NODE_ENV: test
+          MONGO_URI: mongodb://localhost:27017/daylogtest
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+  
+  # Trabajo para construcción y despliegue
+  build-deploy:
+    needs: test-lint
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+      
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Instalar dependencias
+        run: npm ci
+      
+      - name: Construir aplicación
+        run: npm run build
+        env:
+          NODE_ENV: production
+      

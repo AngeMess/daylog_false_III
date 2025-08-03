@@ -1,0 +1,89 @@
+/* Estilos para ProjectDetail */
+
+/* Reglas por defecto - ocultar/mostrar vistas basado en tamaño de pantalla */
+.vista-simplificada {
+  display: none !important;
+}
+
+.vista-completa {
+  display: block !important;
+}
+
+/* Estilos para pantallas pequeñas (teléfonos móviles) */
+@media screen and (max-width: 639px) {
+  .vista-simplificada {
+    display: block !important;
+  }
+  
+  .vista-completa {
+    display: none !important;
+  }
+}
+
+/* Estilos para las cards de empleado en vista móvil */
+.employee-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.employee-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Estilos para el contenedor de la tabla de empleados */
+.employee-table-container {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.employee-card .employee-name {
+  font-weight: 600;
+  color: #01426A;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.employee-card .employee-detail {
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Botones con estilo similar al del login */
+.btn-edit {
+  background-color: #FFC600;
+  color: #01426A;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-edit:hover {
+  background-color: #FBFBFB;
+  color: #FFC600;
+  border-color: #FFC600;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor para los botones de navegación */
+.project-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}

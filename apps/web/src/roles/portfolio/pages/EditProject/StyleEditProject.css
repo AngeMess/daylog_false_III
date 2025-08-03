@@ -1,0 +1,187 @@
+/* Estilos tomados de StyleAddProyect.css para reutilizar la misma organización responsive en el módulo de edición de proyectos */
+
+/* Contenedor principal del formulario */
+.form-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden; /* Prevenir scroll horizontal */
+  z-index: auto;
+}
+
+/* Formulario */
+.project-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+  max-width: 100%; /* Limitar ancho máximo al contenedor */
+}
+
+/* Contenedor de campos con overflow visible */
+.form-fields-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow: visible;
+  width: 100%; /* Asegurar que ocupe todo el ancho disponible */
+}
+
+/* Grillas base */
+.form-row {
+  display: grid;
+  gap: 1rem;
+  overflow: visible;
+  width: 100%;
+  min-width: 0; /* Permitir truncamiento */
+  z-index: auto;
+}
+
+/* Variantes de filas */
+.form-row-single {
+  grid-template-columns: 1fr;
+}
+
+.form-row-double {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.form-row-triple {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Contenedor de campo individual */
+.field-container {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+  min-width: 0; /* Permitir truncamiento */
+  z-index: auto;
+}
+
+/* Z-index para los campos con dropdowns - Sistema mejorado */
+.field-container-z1000 {
+  z-index: 1000;
+}
+
+.field-container-z999 {
+  z-index: 999;
+}
+
+.field-container-z998 {
+  z-index: 998;
+}
+
+.field-container-z997 {
+  z-index: 997;
+}
+
+.field-container-z996 {
+  z-index: 996;
+}
+
+.field-container-z995 {
+  z-index: 995;
+}
+
+.field-container-z994 {
+  z-index: 994;
+}
+
+.field-container-z993 {
+  z-index: 993;
+}
+
+/* Espaciador entre filas */
+.form-spacer {
+  height: 0.5rem;
+}
+
+/* Media queries para responsive */
+@media (max-width: 1024px) {
+  .form-row-triple {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .form-row-triple > div:last-child {
+    grid-column: span 2;
+  }
+  
+  /* Ajustar z-index en tablet para evitar superposiciones */
+  .field-container-z1000 {
+    z-index: auto;
+  }
+  
+  .field-container-z999 {
+    z-index: auto;
+  }
+  
+  .field-container-z998 {
+    z-index: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    padding: 1.5rem;
+  }
+  
+  .form-row-double,
+  .form-row-triple {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-row-triple > div:last-child {
+    grid-column: auto;
+  }
+  
+  .form-spacer {
+    height: 1rem;
+  }
+  
+  /* En móvil, todos los campos tienen el mismo z-index base */
+  .field-container,
+  .field-container-z1000,
+  .field-container-z999,
+  .field-container-z998 {
+    z-index: auto;
+  }
+}
+
+/* Estilos para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .form-container {
+    padding: 1rem;
+  }
+  
+  .form-spacer {
+    height: 1.5rem;
+  }
+}
+
+/* ===== ESTILOS RESPONSIVE PARA BOTONES ===== */
+/* Los botones ahora usan el componente Button unificado que ya incluye responsive */
+/* Solo mantenemos estilos específicos si son necesarios para el layout */
+
+/* Asegurar que los botones se adapten correctamente en diferentes tamaños */
+@media (max-width: 640px) {
+  /* En móvil, los botones se apilan verticalmente */
+  .flex-col.sm\\:flex-row {
+  flex-direction: column;
+  }
+  
+  .space-y-3.sm\\:space-y-0 {
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+  }
+  
+  .sm\\:space-x-4 {
+    margin-left: 0;
+  }
+} 

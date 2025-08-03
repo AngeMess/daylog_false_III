@@ -1,0 +1,17 @@
+// tsconfig.json
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"]
+      }
+    },
+    "include": [
+      "src/**/*",  // Incluye todos los archivos dentro de la carpeta src
+      "index.html" // Si también necesitas incluir index.html
+    ],
+    "exclude": [
+      "node_modules"  // Asegúrate de que node_modules esté excluido
+    ]
+  }
+  

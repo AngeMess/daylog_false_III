@@ -1,0 +1,92 @@
+/* Estilos para los inputs de búsqueda */
+
+/* Contenedor del input de búsqueda */
+.search-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Input de búsqueda */
+.search-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #2C85BC;
+  box-shadow: 0 0 0 2px rgba(44, 133, 188, 0.1);
+}
+
+/* Icono de búsqueda */
+.search-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #667085;
+}
+
+/* Dropdown de resultados */
+.search-dropdown {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  max-height: 240px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06);
+  margin-top: 8px;
+}
+
+/* Item del dropdown */
+.search-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.search-item:hover {
+  background-color: #f3f4f6;
+}
+
+.search-item.selected {
+  background-color: #2C85BC;
+  color: white;
+}
+
+/* Scrollbar personalizado */
+.search-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.search-dropdown::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.search-dropdown::-webkit-scrollbar-thumb {
+  background: #2C85BC;
+  border-radius: 3px;
+}
+
+.search-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #1e4a6f;
+}
+
+/* Mensaje de selección */
+.selected-message {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #194167;
+}

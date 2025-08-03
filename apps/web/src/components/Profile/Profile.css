@@ -1,0 +1,355 @@
+/* Profile.css - Diseño Mejorado */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+
+.profile-container {
+  padding: 32px;
+  min-height: 100vh;
+  background: white; /* Changed from gradient to white */
+  font-family: 'Montserrat', sans-serif;
+}
+
+.profile-content {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 64px);
+}
+
+/* Card Principal */
+.profile-main-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 32px;
+  box-shadow: 0 10px 40px rgba(25, 65, 103, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: fit-content;
+  border: 1px solid rgba(25, 65, 103, 0.08);
+  position: sticky;
+  top: 32px;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  background: transparent;
+  border: none;
+}
+
+.profile-avatar svg {
+  width: 48px;
+  height: 48px;
+}
+
+.profile-avatar svg path {
+  stroke: #9F9FA0;
+}
+
+.profile-name-section {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.profile-name-label {
+  font-size: 14px;
+  color: #194167;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.profile-name {
+  font-size: 24px;
+  font-weight: 600;
+  color: #194167;
+  margin: 0;
+  line-height: 1.3;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.profile-country-badge {
+  background: #2C85BC;
+  color: white;
+  padding: 12px 28px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 4px 15px rgba(44, 133, 188, 0.3);
+}
+
+.profile-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  min-width: 140px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.profile-status.active {
+  background-color: #DFF5E7;
+  color: #0B6B35;
+}
+
+.profile-status.inactive {
+  background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+  color: #dc2626;
+  border: 1px solid #ef4444;
+}
+
+.status-icon {
+  font-size: 22px;
+  font-weight: normal;
+  margin-left: -4px;
+  margin-right: 8px;
+  opacity: 1;
+}
+
+/* Grid de Cards de Información */
+.profile-info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  height: fit-content;
+}
+
+.profile-info-card {
+  background: white;
+  border-radius: 16px;
+  padding: 28px 24px;
+  box-shadow: 0 6px 25px rgba(25, 65, 103, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(25, 65, 103, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #194167 0%, #2C85BC 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile-info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(25, 65, 103, 0.15);
+}
+
+.profile-info-card:hover::before {
+  opacity: 1;
+}
+
+.card-label {
+  font-size: 14px;
+  color: #194167;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-value {
+  font-size: 16px;
+  color: #194167;
+  font-weight: 300;
+  margin: 0;
+  word-break: break-word;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
+}
+
+/* Card de Contraseña */
+.password-card {
+  grid-column: 1 / -1;
+  max-width: 100%;
+}
+
+.password-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.password-display {
+  font-size: 16px;
+  color: #194167;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.reset-password-btn {
+  background: transparent;
+  color: #2C85BC;
+  border: 2px solid #2C85BC;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+  width: auto;
+  max-width: 180px;
+  margin: 0;
+  display: block;
+  align-self: flex-end;
+}
+
+.reset-password-btn:hover {
+  background: #2C85BC;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(44, 133, 188, 0.4);
+}
+
+/* Estados de carga y error */
+.profile-loading,
+.profile-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  background: white;
+  border-radius: 20px;
+  margin: 32px;
+  font-size: 18px;
+  color: #194167;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+}
+
+.profile-error {
+  color: #dc2626;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .profile-content {
+    grid-template-columns: 360px 1fr;
+    gap: 24px;
+  }
+
+  .profile-info-cards {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .profile-container {
+    padding: 24px;
+  }
+
+  .profile-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .profile-main-card {
+    position: relative;
+    top: auto;
+  }
+
+  .profile-info-cards {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 16px;
+  }
+
+  .profile-main-card {
+    padding: 32px 24px;
+  }
+
+  .profile-info-card {
+    padding: 24px 20px;
+  }
+
+  .profile-name {
+    font-size: 20px;
+  }
+
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .profile-avatar svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .profile-info-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .reset-password-btn {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 12px;
+  }
+
+  .password-field {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .password-display {
+    text-align: center;
+  }
+
+  .reset-password-btn {
+    width: 100%;
+    max-width: none;
+  }
+
+  .profile-content {
+    gap: 16px;
+  }
+
+  .profile-main-card {
+    padding: 24px 20px;
+  }
+}

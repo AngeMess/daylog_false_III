@@ -1,0 +1,66 @@
+/* Estilos específicos para ProjectDetails */
+
+/* Animación de carga */
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Spinner de carga */
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #01426A;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Estilos para estados de error */
+  .error-message {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+  }
+  
+  /* Estilos para estados de éxito */
+  .success-message {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #dcfce7;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+  }
+  
+  /* Estilos para badges */
+  .status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* Animación de entrada */
+  .fade-in {
+    animation: fadeIn 0.3s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

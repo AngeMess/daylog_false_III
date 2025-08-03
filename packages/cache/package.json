@@ -1,0 +1,9 @@
+{
+  "name": "@daylog/cache",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "redis": "^4.6.10"
+  }
+}

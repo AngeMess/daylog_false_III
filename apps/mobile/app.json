@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "DayLog Mobile",
+    "slug": "DayLog Mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/CuscaYellowLogoLogin.png",
+    "userInterfaceStyle": "light",
+    "sdkVersion": "53.0.0",
+    "splash": {
+      "image": "./assets/CuscaYellowLogoLogin.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#141718"
+    },
+    "entryPoint": "./index.js",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/CuscaYellowLogoLogin.png",
+        "backgroundColor": "#141718"
+      }
+    },
+    "web": {
+      "favicon": "./assets/CuscaYellowLogoLogin.png",
+      "bundler": "metro"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "experiments": {
+      "reactCanary": true
+    }
+  }
+}

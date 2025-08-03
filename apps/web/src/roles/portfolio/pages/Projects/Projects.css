@@ -1,0 +1,526 @@
+/* Estilos personalizados para el componente de proyectos */
+
+/* Scrollbars transparentes para las columnas */
+.project-column {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  max-width: 100%; /* Limitar el ancho máximo para evitar desbordamiento */
+  will-change: transform, opacity;
+  position: relative; /* Mantener contexto para referencias, pero SIN nuevo stacking (z-index) */
+}
+
+.project-column::-webkit-scrollbar {
+  width: 5px;
+}
+
+.project-column::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.project-column::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.project-column::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el encabezado de proyectos */
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
+  gap: 1rem; /* Espacio entre elementos cuando se envuelven */
+}
+
+/* Contenedor de búsqueda y botón alineados a la derecha */
+.projects-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-container input {
+  padding-left: 2.5rem;
+  padding-right: 1rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  width: 250px;
+  transition: all 0.3s ease;
+}
+
+.search-container input:focus {
+  outline: none;
+  ring: 2px;
+  ring-color: #01426A;
+  border-color: #01426A;
+}
+
+.add-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #FFC600;
+  color: #01426A;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #FBFBFB;
+  color: #FFC600;
+  border-color: #FFC600;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Nuevos estilos para los filtros */
+.filter-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f9f9f9;
+  color: #333;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.filter-button:hover {
+  background-color: #f0f0f0;
+  border-color: #d1d1d1;
+}
+
+/* Estilos para colores de estado */
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+.status-badge.Pendiente {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.status-badge.En-proceso {
+  background-color: #eab308;
+  color: white;
+}
+
+.status-badge.Finalizado {
+  background-color: #22c55e;
+  color: white;
+}
+
+.status-badge.Cancelado {
+  background-color: #1f2937;
+  color: white;
+}
+
+.status-badge.Atrasado {
+  background-color: #ef4444;
+  color: white;
+}
+
+.status-badge.En-Riesgo {
+  background-color: #8b5cf6;
+  color: white;
+}
+
+.status-badge.Repriorizado {
+  background-color: #ec4899;
+  color: white;
+}
+
+/* Estilos para código de proyecto */
+.project-code {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: #01426A;
+}
+
+/* Estilos responsivos para el encabezado - cambiado a 1000px */
+@media screen and (max-width: 1000px) {
+  .projects-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .projects-controls {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    gap: 0.75rem;
+    order: 2; /* Cambiar el orden para que los controles aparezcan después del título */
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  
+  .search-container {
+    width: 100%;
+    max-width: 300px;
+    order: 3; /* Colocar la búsqueda después de los filtros */
+  }
+  
+  .search-container input {
+    width: 100%;
+  }
+  
+  .add-button {
+    width: auto;
+    max-width: 300px;
+    justify-content: center;
+    order: 1; /* Colocar el botón de agregar primero */
+  }
+
+  .filter-button {
+    width: auto;
+    max-width: 300px;
+    justify-content: center;
+  }
+  
+  /* Evitar que el grid cause scroll horizontal */
+  .grid.grid-cols-1 {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+/* Estilos específicos para móviles y tablets pequeñas */
+@media screen and (max-width: 768px) {
+  .projects-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  
+  .search-container {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .search-container input {
+    width: 100% !important;
+  }
+  
+  .add-button, 
+  .filter-button,
+  .relative {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Eliminar margen derecho de los contenedores de filtros */
+  .relative.mr-2 {
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
+  
+  /* Asegurar que los botones de filtro ocupen todo el ancho */
+  .relative.mr-2 .filter-button {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Forzar ancho completo para los botones dentro de los filtros */
+  button[class*="btn_g"],
+  button[class*="btn_primary"] {
+    width: 100% !important;
+  }
+}
+
+/* Corrección para el problema de espacio en blanco en móviles */
+@media screen and (max-width: 640px) {
+  .p-6 {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+  
+  body, html {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .project-column {
+    padding: 0.75rem;
+  }
+  
+  /* Asegurar que el grid no cause scroll horizontal */
+  .grid {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+
+  /* Ajustes para el contenido principal en móvil */
+  .min-h-screen.p-4.md\:p-8 {
+    margin-top: 80px !important;
+    margin-left: 0 !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    width: 100% !important;
+  }
+}
+
+/* Estilos optimizados para las tarjetas de proyecto */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(31, 38, 135, 0.1);
+  border-radius: 0.75rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  will-change: transform, box-shadow;
+  position: relative; /* Asegurar que tiene su propio contexto de apilamiento */
+  z-index: 1; /* z-index base para tarjetas normales */
+}
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(31, 38, 135, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/*
+  Corrección para el problema de z-index al arrastrar tarjetas.
+  Aseguramos que el elemento arrastrado siempre esté por encima.
+*/
+body[data-rfd-is-dragging='true'] .project-column {
+  overflow: visible !important;
+}
+
+body[data-rfd-is-dragging='true'] .glass-card {
+  /* Se elimina para evitar interferir con el transform de la librería */
+}
+
+body[data-rfd-is-dragging='true'] [data-rfd-drag-handle-draggable-id] {
+  z-index: 9999 !important;
+}
+
+/* Asegurar que el elemento siendo arrastrado esté por encima de todo */
+[data-rfd-draggable-id][data-rfd-draggable-context-id] {
+  /* position y z-index predeterminados gestionados por la librería */
+}
+
+/* Cuando se está arrastrando, forzar que esté por encima */
+[data-rfd-draggable-id][data-rfd-draggable-context-id][data-rfd-is-dragging="true"] {
+  /* Dejamos que react-dnd gestione position: fixed; solo elevamos el z-index */
+  z-index: 9999 !important;
+}
+
+/* Estilos para la tarjeta mientras se arrastra */
+.dragging-card {
+  /* Mantener el translate que aplica la librería; solo modificamos sombra y opacidad */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+  opacity: 0.98 !important;
+  z-index: 9999 !important;
+  position: fixed !important; /* Escapar del flujo y de su contenedor */
+  /* Quitamos position y pointer-events para evitar interferir */
+  /* pointer-events: none !important; */
+  cursor: grabbing !important;
+}
+
+/* Corregir espacio en blanco en versión web */
+@media screen and (min-width: 1000px) {
+  .grid.grid-cols-1 {
+    align-items: flex-start;
+    min-height: 0;
+  }
+  
+  .flex-1.bg-white.rounded-xl {
+    height: auto;
+    min-height: 50px;
+    max-height: calc(100vh - 220px);
+  }
+}
+
+/* Animaciones para el drop */
+@keyframes dropAnimation {
+  0% {
+    transform: translateY(-5px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.card-dropped {
+  animation: dropAnimation 0.3s ease-out forwards;
+}
+
+/* Estilos para el modal */
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 460px;
+  width: 100%;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal responsivo */
+@media screen and (max-width: 1000px) {
+  /* Estilos para el contenedor del modal */
+  .ReactModal__Content {
+    width: 85% !important;
+    max-width: 320px !important;
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+    margin: auto !important;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%) !important;
+    padding: 16px !important;
+  }
+  
+  /* Asegurar que el overlay cubra toda la pantalla */
+  .ReactModal__Overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+  
+  /* Estilos para el contenido interno del modal */
+  .flex.flex-col.items-center {
+    width: 100%;
+  }
+}
+
+/* Estilos para el botón */
+.btn-primary {
+  background-color: #FFC600;
+  color: #01426A;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+}
+
+.btn-primary:hover {
+  background-color: #FBFBFB;
+  color: #FFC600;
+  border-color: #FFC600;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el modal de visibilidad */
+.visibility-modal-content {
+  max-width: 400px;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background-color: white;
+}
+
+.visibility-switch {
+  position: relative;
+  display: inline-block;
+  width: 3.5rem;
+  height: 2rem;
+}
+
+.visibility-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.visibility-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 2rem;
+}
+
+.visibility-slider:before {
+  position: absolute;
+  content: "";
+  height: 1.5rem;
+  width: 1.5rem;
+  left: 0.25rem;
+  bottom: 0.25rem;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .visibility-slider {
+  background-color: #22c55e;
+}
+
+input:checked + .visibility-slider:before {
+  transform: translateX(1.5rem);
+}
+
+.visibility-icon {
+  margin-right: 0.5rem;
+}
+
+/* Prevenir overflow en pantallas pequeñas */
+@media screen and (max-width: 640px) {
+  .overflow-hidden {
+    overflow: hidden !important;
+  }
+  
+  .min-h-screen {
+    min-height: 100vh !important;
+    width: 100% !important;
+  }
+  
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "name": "daylog-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Integrantes:\r - Angel Mauricio Chévez Campos - 20230252\r - Aarón Edgardo García Romero - 20230406 \r - Ethan David Henríquez Díaz - 20230006\r - Christian Alessandro Marín Sandoval - 20200237 \r - Sofía Verónica Palacios Lara - 20230106",
+  "packageManager": "npm@10.5.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "clean": "rimraf .turbo node_modules/.cache",
+    "test": "turbo run test",
+    "dev": "turbo run dev --filter=backend --filter=web",
+    "global": "turbo run dev --filter=backend --filter=web --filter=mobile",
+    "mobile": "turbo run dev --filter=backend --filter=mobile",
+    "build": "turbo run build",
+    "start": "turbo run start --parallel",
+    "dev:backend": "cd apps/Backend && npm run dev",
+    "dev:frontend": "cd apps/web && npm run dev",
+    "build:backend": "cd apps/Backend && npm run build",
+    "build:frontend": "cd apps/web && npm run build",
+    "start:backend": "cd apps/Backend && npm run start",
+    "start:frontend": "cd apps/web && npm run preview",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaichor/DayLog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/chaichor/DayLog/issues"
+  },
+  "homepage": "https://github.com/chaichor/DayLog#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "eslint": "^9.25.0",
+    "prettier": "^3.1.0",
+    "rimraf": "^6.0.1",
+    "turbo": "^2.5.5"
+  },
+  "dependencies": {
+    "@expo-google-fonts/montserrat": "^0.4.1",
+    "@nivo/radar": "^0.99.0",
+    "@radix-ui/react-icons": "^1.3.2",
+    "axios": "^1.9.0",
+    "chart.js": "^4.4.9",
+    "date-fns": "^4.1.0",
+    "expo-font": "^13.3.2",
+    "expo-splash-screen": "^0.30.10",
+    "framer-motion": "^12.23.0",
+    "multer-storage-cloudinary": "^4.0.0",
+    "react-day-picker": "^9.7.0",
+    "react-native-svg": "^15.12.0",
+    "react-responsive": "^10.0.1"
+  }
+}

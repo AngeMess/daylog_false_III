@@ -1,0 +1,117 @@
+/* Estilos personalizados para el componente de perfil de usuario */
+
+/* Estilos para scrollbars en el contenedor de proyectos */
+.overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  width: 5px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.overflow-y-auto:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para las tarjetas */
+.profile-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.profile-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Estilos para el cuadro de perfil */
+.h-full.flex.flex-col {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+}
+
+/* Asegurar que las columnas tengan la misma altura */
+.grid.grid-cols-1.md\:grid-cols-3 {
+  align-items: stretch;
+}
+
+/* Ajuste para el espacio entre elementos en el perfil */
+.space-y-4 {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Estilos para los indicadores de estado */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+}
+
+.status-badge.enabled {
+  background-color: #E6F7E6;
+  color: #22C55E;
+}
+
+/* Estilos para los botones */
+.btn-primary {
+  background-color: #FFC600;
+  color: #01426A;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+}
+
+.btn-primary:hover {
+  background-color: #FBFBFB;
+  color: #FFC600;
+  border-color: #FFC600;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+  background-color: #E5F0FF;
+  color: #3B82F6;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+}
+
+.btn-secondary:hover {
+  background-color: #FBFBFB;
+  color: #3B82F6;
+  border-color: #3B82F6;
+}
+
+/* Estilos responsivos */
+@media screen and (max-width: 768px) {
+  .grid.grid-cols-1.md\:grid-cols-3 {
+    gap: 1rem;
+  }
+  
+  .md\:col-span-2.grid.grid-cols-1.md\:grid-cols-2 {
+    gap: 1rem;
+  }
+}
