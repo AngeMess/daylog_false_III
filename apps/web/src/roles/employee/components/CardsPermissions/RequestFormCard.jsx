@@ -21,7 +21,8 @@ export default function RequestFormCard({ onPermitCreated, className = "" }) {
     loading,
     error,
     PERMIT_TYPES,
-    validatePermitData
+    validatePermitData,
+    isAuthenticated
   } = usePermissionsApi();
 
   // Opciones para el select de tipo de permiso
@@ -93,6 +94,12 @@ export default function RequestFormCard({ onPermitCreated, className = "" }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Verificar autenticación antes de proceder
+    if (!isAuthenticated()) {
+      showErrorMessage('Tu sesión ha expirado. Por favor inicia sesión nuevamente.');
+      return;
+    }
+
     // Validar formulario
     if (!validateForm()) {
       return;
@@ -150,7 +157,24 @@ export default function RequestFormCard({ onPermitCreated, className = "" }) {
   const isCharacterLimitNear = characterCount > 300;
   const isCharacterLimitExceeded = characterCount > 350;
 
-  return (
+      // Verificar autenticación
+    if (!isAuthenticated()) {
+      return (
+        <div className={`bg-white rounded-xl shadow-lg p-8 h-full ${className}`}>
+          <div className="flex items-center justify-center h-full">
+            <div className="text-center">
+              <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Sesión Expirada</h3>
+              <p className="text-gray-600">
+                Tu sesión ha expirado. Por favor inicia sesión nuevamente para enviar solicitudes de permisos.
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
     <div className={`bg-white rounded-xl shadow-lg p-8 h-full ${className}`}>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">

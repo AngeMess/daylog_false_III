@@ -14,17 +14,27 @@ const usePermissionsApi = () => {
     // URL base de la API
     const API_URL = 'http://localhost:3000/api/permit';
 
-    // Obtener el token de autenticación
-    const authToken = Cookies.get('authToken');
+    // Función para verificar si el usuario está autenticado
+    const isAuthenticated = useCallback(() => {
+        const authToken = Cookies.get('authToken');
+        return !!authToken;
+    }, []);
 
-    // Configurar axios para incluir el token en todas las peticiones
-    if (authToken) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
-        console.log('🔐 Token de autenticación configurado:', authToken.substring(0, 20) + '...');
-    } else {
-        console.warn('⚠️ No se encontró token de autenticación en las cookies');
-        delete axios.defaults.headers.common['Authorization'];
-    }
+    // Función para obtener headers de autenticación
+    const getAuthHeaders = useCallback(() => {
+        const authToken = Cookies.get('authToken');
+        
+        if (authToken) {
+            console.log('🔐 Token encontrado:', authToken.substring(0, 20) + '...');
+            return {
+                'Authorization': `Bearer ${authToken}`,
+                'Content-Type': 'application/json'
+            };
+        } else {
+            console.warn('⚠️ No se encontró token de autenticación en las cookies');
+            throw new Error('No hay sesión activa. Por favor inicia sesión nuevamente.');
+        }
+    }, []);
 
     // Constantes para tipos de permisos válidos
     const PERMIT_TYPES = [
@@ -49,13 +59,22 @@ const usePermissionsApi = () => {
         setError(null);
 
         try {
+            // Verificar autenticación antes de hacer la petición
+            if (!isAuthenticated()) {
+                throw new Error('No hay sesión activa. Por favor inicia sesión nuevamente.');
+            }
+
             let url = API_URL;
             if (stateFilter && PERMIT_STATES.includes(stateFilter)) {
                 const params = new URLSearchParams({ state: stateFilter });
                 url = `${API_URL}?${params}`;
             }
 
-            const response = await axios.get(url, { withCredentials: true });
+            console.log('📡 Obteniendo permisos desde:', url);
+            const response = await axios.get(url, { 
+                headers: getAuthHeaders(),
+                withCredentials: true 
+            });
             
             // Transformar datos para mejor visualización
             const transformedPermits = response.data.map(permit => ({
@@ -95,7 +114,7 @@ const usePermissionsApi = () => {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [getAuthHeaders, isAuthenticated]);
 
     // Función para obtener un permiso específico por ID
     const getPermitById = useCallback(async (id) => {
@@ -103,7 +122,10 @@ const usePermissionsApi = () => {
         setError(null);
 
         try {
-            const response = await axios.get(`${API_URL}/${id}`, { withCredentials: true });
+            const response = await axios.get(`${API_URL}/${id}`, { 
+                headers: getAuthHeaders(),
+                withCredentials: true 
+            });
             return response.data;
         } catch (err) {
             setError(err.response?.data?.message || err.message || 'Error al cargar el permiso');
@@ -112,7 +134,7 @@ const usePermissionsApi = () => {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [getAuthHeaders]);
 
     // Función para crear un nuevo permiso
     const createPermit = useCallback(async (permitData) => {
@@ -135,10 +157,8 @@ const usePermissionsApi = () => {
             });
 
             const response = await axios.post(API_URL, permitData, { 
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: getAuthHeaders(),
+                withCredentials: true
             });
             
             console.log('✅ Permiso creado exitosamente:', response.data);
@@ -158,7 +178,7 @@ const usePermissionsApi = () => {
         } finally {
             setLoading(false);
         }
-    }, [getPermits]);
+    }, [getPermits, getAuthHeaders]);
 
     // Función para actualizar un permiso existente
     const updatePermit = useCallback(async (id, permitData) => {
@@ -178,7 +198,10 @@ const usePermissionsApi = () => {
             if (permitData.state) dataToSend.state = permitData.state;
             if (permitData.permitType) dataToSend.permitType = permitData.permitType;
 
-            const response = await axios.put(`${API_URL}/${id}`, dataToSend, { withCredentials: true });
+            const response = await axios.put(`${API_URL}/${id}`, dataToSend, { 
+                headers: getAuthHeaders(),
+                withCredentials: true 
+            });
             await getPermits(); // Refrescar la lista después de actualizar
             return response.data;
         } catch (err) {
@@ -189,7 +212,7 @@ const usePermissionsApi = () => {
         } finally {
             setLoading(false);
         }
-    }, [getPermits]);
+    }, [getPermits, getAuthHeaders]);
 
     // Función para eliminar un permiso
     const deletePermit = useCallback(async (id) => {
@@ -201,7 +224,10 @@ const usePermissionsApi = () => {
                 throw new Error('ID del permiso es requerido');
             }
 
-            const response = await axios.delete(`${API_URL}/${id}`, { withCredentials: true });
+            const response = await axios.delete(`${API_URL}/${id}`, { 
+                headers: getAuthHeaders(),
+                withCredentials: true 
+            });
             await getPermits(); // Refrescar la lista después de eliminar
             return response.data;
         } catch (err) {
@@ -212,7 +238,7 @@ const usePermissionsApi = () => {
         } finally {
             setLoading(false);
         }
-    }, [getPermits]);
+    }, [getPermits, getAuthHeaders]);
 
     // Función para buscar permisos con búsqueda inteligente (local)
     const searchPermits = useCallback((query) => {
@@ -342,8 +368,17 @@ const usePermissionsApi = () => {
 
     // Cargar permisos al montar el componente
     useEffect(() => {
-        getPermits();
-    }, [getPermits]);
+        // Solo cargar permisos si hay sesión activa
+        if (isAuthenticated()) {
+            getPermits().catch(err => {
+                console.error('Error al cargar permisos iniciales:', err);
+                // No re-lanzar el error para evitar errores no capturados
+            });
+        } else {
+            console.warn('⚠️ No hay sesión activa, no se cargarán los permisos');
+            setError('No hay sesión activa. Por favor inicia sesión para ver tus permisos.');
+        }
+    }, [getPermits, isAuthenticated]);
 
     // Recalcular estadísticas cuando cambien los permisos
     useEffect(() => {
@@ -480,7 +515,8 @@ const usePermissionsApi = () => {
         // Funciones de utilidad
         validatePermitData,
         getStateColor,
-        getStateIcon
+        getStateIcon,
+        isAuthenticated
     };
 };
 
