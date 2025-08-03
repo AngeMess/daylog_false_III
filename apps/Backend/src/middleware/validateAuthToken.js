@@ -25,8 +25,11 @@ export const validateAuthToken = (allowedUserTypes = []) => {
                 // Asignar el usuario a la request
                 req.user = decoded;
                 
+                // Asignar el employeeId a la request (IMPORTANTE: debe estar antes del next())
+                req.employeeId = decoded.idEmployee;
+                
                 // Verificar si el tipo de usuario está permitido
-                if (!allowedUserTypes.includes(decoded.userType)) {
+                if (allowedUserTypes.length > 0 && !allowedUserTypes.includes(decoded.userType)) {
                     return res.status(403).json({ message: "Acceso denegado" });
                 }
                 
@@ -35,8 +38,6 @@ export const validateAuthToken = (allowedUserTypes = []) => {
                 console.error("Error verificando token:", jwtError);
                 return res.status(401).json({ message: "Token inválido" });
             }
-
-            req.employeeId = decoded.idEmployee;
         } catch (error) {
             console.error("Error en el middleware de autenticación:", error);
             return res.status(500).json({ message: "Error interno del servidor" });
