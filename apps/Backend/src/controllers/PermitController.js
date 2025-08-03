@@ -21,8 +21,8 @@ PermitController.insertPermit = async(req, res) => {
     try {
         const { date, motive, state, permitType } = req.body;
 
-        // Obtén el id del empleado desde req.employeeId
-        const idEmployee = req.employeeId;
+        // Obtén el id del empleado desde req.user.idEmployee (establecido por el middleware)
+        const idEmployee = req.user.idEmployee;
 
         // Validación de campos requeridos
         if (!idEmployee || !date || !motive || !state || !permitType) {

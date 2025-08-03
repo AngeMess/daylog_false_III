@@ -15,16 +15,16 @@ const PermitSchema = new Schema(
     idEmployee: {
     type: Schema.Types.ObjectId,
     ref: "Employee",
-    require: true
+    required: true
     },
     date: {
       type: Date,
-      require: true,
+      required: true,
     },
     motive: {
       type: String,
-      require: true,
-      maxLenght: 350,
+      required: true,
+      maxLength: 350,
     },
     state: {
       type: String,
@@ -33,7 +33,7 @@ const PermitSchema = new Schema(
         message:
           "El estado de la solicitud de permiso solo puede ser aprobada, pendiente o denegada",
       },
-      require: true,
+      required: true,
     },
     permitType: {
       type: String,
