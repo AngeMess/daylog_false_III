@@ -100,11 +100,20 @@ export default function RequestFormCard({ onPermitCreated, className = "" }) {
 
     // Preparar datos del permiso
     const permitData = {
-      date: date,
+      date: date instanceof Date ? date.toISOString() : date, // Asegurar formato de fecha correcto
       motive: reason.trim(),
       state: 'Pendiente', // Estado inicial
       permitType: permissionType
     };
+
+    // Log de debugging del componente
+    console.log('🔍 Datos del formulario antes de enviar:', {
+      date: date,
+      dateFormatted: permitData.date,
+      motive: permitData.motive,
+      state: permitData.state,
+      permitType: permitData.permitType
+    });
 
     // Validación adicional usando el hook
     const validationError = validatePermitData(permitData);

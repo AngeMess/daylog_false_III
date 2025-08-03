@@ -18,7 +18,13 @@ const usePermissionsApi = () => {
     const authToken = Cookies.get('authToken');
 
     // Configurar axios para incluir el token en todas las peticiones
-    axios.defaults.headers.common['Authorization'] = authToken ? `Bearer ${authToken}` : '';
+    if (authToken) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+        console.log('🔐 Token de autenticación configurado:', authToken.substring(0, 20) + '...');
+    } else {
+        console.warn('⚠️ No se encontró token de autenticación en las cookies');
+        delete axios.defaults.headers.common['Authorization'];
+    }
 
     // Constantes para tipos de permisos válidos
     const PERMIT_TYPES = [
@@ -120,13 +126,34 @@ const usePermissionsApi = () => {
                 throw new Error(validationError);
             }
 
-            const response = await axios.post(API_URL, permitData, { withCredentials: true });
+            // Log de debugging
+            console.log('📤 Enviando datos del permiso:', {
+                date: permitData.date,
+                motive: permitData.motive,
+                state: permitData.state,
+                permitType: permitData.permitType
+            });
+
+            const response = await axios.post(API_URL, permitData, { 
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            console.log('✅ Permiso creado exitosamente:', response.data);
             await getPermits(); // Refrescar la lista después de crear
             return response.data;
         } catch (err) {
+            console.error('❌ Error completo al crear permiso:', {
+                message: err.message,
+                response: err.response?.data,
+                status: err.response?.status,
+                config: err.config
+            });
+            
             const errorMessage = err.response?.data?.message || err.message || 'Error al crear el permiso';
             setError(errorMessage);
-            console.error('Error al crear el permiso:', err);
             throw new Error(errorMessage);
         } finally {
             setLoading(false);
@@ -327,18 +354,28 @@ const usePermissionsApi = () => {
 
     // Función para validar datos del permiso
     const validatePermitData = (data) => {
+        console.log('🔍 Validando datos del permiso:', data);
+        
         if (!data.date) return 'La fecha es requerida';
         if (!data.motive || data.motive.trim() === '') return 'El motivo es requerido';
         if (data.motive.length > 350) return 'El motivo no puede exceder 350 caracteres';
         if (!data.state || !PERMIT_STATES.includes(data.state)) return 'Estado inválido';
         if (!data.permitType || !PERMIT_TYPES.includes(data.permitType)) return 'Tipo de permiso inválido';
         
-        // Validar que la fecha no sea en el pasado para nuevos permisos
+        // Validar que la fecha sea válida
         const permitDate = new Date(data.date);
+        if (isNaN(permitDate.getTime())) {
+            return 'La fecha proporcionada no es válida';
+        }
+        
+        // Validar que la fecha no sea en el pasado para nuevos permisos
         const today = new Date();
         today.setHours(0, 0, 0, 0);
+        permitDate.setHours(0, 0, 0, 0);
+        
         if (permitDate < today) return 'La fecha del permiso no puede ser en el pasado';
 
+        console.log('✅ Validación de datos exitosa');
         return null;
     };
 
