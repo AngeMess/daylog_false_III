@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 // Hook personalizado para interactuar con la API de permisos
 const usePermissionsApi = () => {
@@ -14,26 +13,24 @@ const usePermissionsApi = () => {
     // URL base de la API
     const API_URL = 'http://localhost:3000/api/permit';
 
+    // Configurar axios para usar cookies (como en authContext.jsx)
+    axios.defaults.withCredentials = true;
+
     // Función para verificar si el usuario está autenticado
     const isAuthenticated = useCallback(() => {
-        const authToken = Cookies.get('authToken');
-        return !!authToken;
+        // Verificar si hay datos de usuario en localStorage (como hace el authContext)
+        const userData = localStorage.getItem('userData');
+        return !!userData;
     }, []);
 
     // Función para obtener headers de autenticación
     const getAuthHeaders = useCallback(() => {
-        const authToken = Cookies.get('authToken');
-        
-        if (authToken) {
-            console.log('🔐 Token encontrado:', authToken.substring(0, 20) + '...');
-            return {
-                'Authorization': `Bearer ${authToken}`,
-                'Content-Type': 'application/json'
-            };
-        } else {
-            console.warn('⚠️ No se encontró token de autenticación en las cookies');
-            throw new Error('No hay sesión activa. Por favor inicia sesión nuevamente.');
-        }
+        // No necesitamos Authorization header manual porque el sistema usa withCredentials
+        // que maneja las cookies automáticamente (como en authContext.jsx)
+        console.log('🔐 Usando autenticación por cookies automática (withCredentials)');
+        return {
+            'Content-Type': 'application/json'
+        };
     }, []);
 
     // Constantes para tipos de permisos válidos
