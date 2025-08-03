@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 // Hook personalizado para interactuar con la API de permisos
+// ACTUALIZADO: 2024-01-15 - Corregido sistema de autenticación
 const usePermissionsApi = () => {
     const [permits, setPermits] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -23,11 +24,9 @@ const usePermissionsApi = () => {
         return !!userData;
     }, []);
 
-    // Función para obtener headers de autenticación
-    const getAuthHeaders = useCallback(() => {
-        // No necesitamos Authorization header manual porque el sistema usa withCredentials
-        // que maneja las cookies automáticamente (como en authContext.jsx)
-        console.log('🔐 Usando autenticación por cookies automática (withCredentials)');
+    // NUEVO: Función simplificada para headers (sin token manual)
+    const getRequestHeaders = useCallback(() => {
+        console.log('✅ NUEVO: Headers sin token manual - usando cookies automáticas');
         return {
             'Content-Type': 'application/json'
         };
@@ -69,7 +68,7 @@ const usePermissionsApi = () => {
 
             console.log('📡 Obteniendo permisos desde:', url);
             const response = await axios.get(url, { 
-                headers: getAuthHeaders(),
+                headers: getRequestHeaders(),
                 withCredentials: true 
             });
             
@@ -111,7 +110,7 @@ const usePermissionsApi = () => {
         } finally {
             setLoading(false);
         }
-    }, [getAuthHeaders, isAuthenticated]);
+    }, [getRequestHeaders, isAuthenticated]);
 
     // Función para obtener un permiso específico por ID
     const getPermitById = useCallback(async (id) => {
@@ -120,7 +119,7 @@ const usePermissionsApi = () => {
 
         try {
             const response = await axios.get(`${API_URL}/${id}`, { 
-                headers: getAuthHeaders(),
+                headers: getRequestHeaders(),
                 withCredentials: true 
             });
             return response.data;
@@ -131,7 +130,7 @@ const usePermissionsApi = () => {
         } finally {
             setLoading(false);
         }
-    }, [getAuthHeaders]);
+    }, [getRequestHeaders]);
 
     // Función para crear un nuevo permiso
     const createPermit = useCallback(async (permitData) => {
@@ -154,7 +153,7 @@ const usePermissionsApi = () => {
             });
 
             const response = await axios.post(API_URL, permitData, { 
-                headers: getAuthHeaders(),
+                headers: getRequestHeaders(),
                 withCredentials: true
             });
             
@@ -175,7 +174,7 @@ const usePermissionsApi = () => {
         } finally {
             setLoading(false);
         }
-    }, [getPermits, getAuthHeaders]);
+    }, [getPermits, getRequestHeaders]);
 
     // Función para actualizar un permiso existente
     const updatePermit = useCallback(async (id, permitData) => {
@@ -196,7 +195,7 @@ const usePermissionsApi = () => {
             if (permitData.permitType) dataToSend.permitType = permitData.permitType;
 
             const response = await axios.put(`${API_URL}/${id}`, dataToSend, { 
-                headers: getAuthHeaders(),
+                headers: getRequestHeaders(),
                 withCredentials: true 
             });
             await getPermits(); // Refrescar la lista después de actualizar
@@ -209,7 +208,7 @@ const usePermissionsApi = () => {
         } finally {
             setLoading(false);
         }
-    }, [getPermits, getAuthHeaders]);
+    }, [getPermits, getRequestHeaders]);
 
     // Función para eliminar un permiso
     const deletePermit = useCallback(async (id) => {
@@ -222,7 +221,7 @@ const usePermissionsApi = () => {
             }
 
             const response = await axios.delete(`${API_URL}/${id}`, { 
-                headers: getAuthHeaders(),
+                headers: getRequestHeaders(),
                 withCredentials: true 
             });
             await getPermits(); // Refrescar la lista después de eliminar
@@ -235,7 +234,7 @@ const usePermissionsApi = () => {
         } finally {
             setLoading(false);
         }
-    }, [getPermits, getAuthHeaders]);
+    }, [getPermits, getRequestHeaders]);
 
     // Función para buscar permisos con búsqueda inteligente (local)
     const searchPermits = useCallback((query) => {
